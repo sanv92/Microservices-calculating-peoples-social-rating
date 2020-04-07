@@ -1,0 +1,25 @@
+{
+  "namespace": "com.example.schemaregistry",
+  "type": "record",
+  "name": "UserCreatedEvent",
+  "fields": [
+    {
+        "name": "firstName",
+        "type": "string",
+        "avro.java.string": "String"
+       },
+    {
+        "name": "lastName",
+        "type": "string",
+        "avro.java.string": "String"
+    },
+    {
+        "name": "age",
+        "type": "int"
+    },
+    {
+        "name": "baseScoreRating",
+        "type": "int"
+    }
+  ]
+}

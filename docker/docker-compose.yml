@@ -1,0 +1,71 @@
+---
+version: '3'
+services:
+
+  ### POSTGRES SERVER #############################
+  postgres-social:
+    hostname: postgres-social-container
+    container_name: postgres-social-container
+    image: postgres:9.6.17
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/data/postgres
+    volumes:
+      - ./postgres:/data/postgres
+    ports:
+      - "5432:5432"
+
+  ### REDIS SERVER #############################
+  redis-server:
+    hostname: redis-server-container
+    container_name: redis-server-container
+    image: redis:5.0.8
+    command: ["redis-server", "--bind", "0.0.0.0", "--port", "6379"]
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+
+  ### ZOOKEEPER #############################
+  zookeeper:
+    hostname: zookeeper-container
+    container_name: zookeeper-container
+    image: confluentinc/cp-zookeeper:5.4.1
+    ports:
+      - "2181:2181"
+    environment:
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+
+  ### KAFKA BROKER #############################
+  broker:
+    hostname: broker-container
+    container_name: broker-container
+    image: confluentinc/cp-kafka:5.4.1
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+      - "9092:9092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-container:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://broker-container:29092,PLAINTEXT_HOST://localhost:9092
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
+
+  ### SCHEMA REGISTRY #############################
+  schema-registry:
+    hostname: schema-registry-container
+    container_name: schema-registry-container
+    image: confluentinc/cp-schema-registry:5.4.1
+    depends_on:
+      - zookeeper
+      - broker
+    ports:
+      - "8081:8081"
+    environment:
+      - SCHEMA_REGISTRY_HOST_NAME=schema-registry-container
+      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=zookeeper-container:2181

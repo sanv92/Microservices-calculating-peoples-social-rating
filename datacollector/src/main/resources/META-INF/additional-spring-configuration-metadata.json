@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "social.base-score-rating",
+      "type": "java.lang.Number",
+      "description": "Description for social.base-score-rating."
+    },
+    {
+      "name": "kafka.topic-partitions-num",
+      "type": "java.lang.Number",
+      "description": "Description for topic.partitions-num."
+    },
+    {
+      "name": "kafka.topic-replication-factor",
+      "type": "java.lang.Number",
+      "description": "Description for topic.replication-factor."
+    },
+    {
+      "name": "kafka.topic-user",
+      "type": "java.lang.String",
+      "description": "Description for topic.replication-factor."
+    },
+    {
+      "name": "kafka.consumer-group-id",
+      "type": "java.lang.String",
+      "description": "Description for topic.replication-factor."
+    }
+  ]
+}
