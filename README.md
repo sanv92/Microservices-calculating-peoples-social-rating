@@ -15,9 +15,7 @@ mvn clean install -DskipTests
 ### Project start (Maven)
 ```
 mvn --projects datacollector spring-boot:run
-mvn --projects datacollector spring-boot:run --social.base-score-rating=100
 mvn --projects socialratingcalculator spring-boot:run
-mvn --projects datacollector spring-boot:run --social.base-score-rating=100 -Drun.jvmArguments='-Dserver.port=8080'
 mvn --projects datacollector spring-boot:run -Drun.jvmArguments='-Dserver.port=8080'
 mvn --projects socialratingcalculator spring-boot:run -Drun.jvmArguments='-Dserver.port=8090'
 ```
