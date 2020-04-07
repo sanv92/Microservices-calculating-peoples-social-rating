@@ -140,6 +140,7 @@ $RECYCLE.BIN/
 .history
 
 target
+docker/postgres
 .cache
 *.bundle.js
 *.js.map
