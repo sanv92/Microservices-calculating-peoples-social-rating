@@ -1,7 +1,7 @@
 package com.example.socialratingcalculator.interfaces.web;
 
-import com.example.socialratingcalculator.application.UserService;
-import com.example.socialratingcalculator.domain.model.User;
+import com.example.socialratingcalculator.interfaces.web.facade.UserServiceFacade;
+import com.example.socialratingcalculator.interfaces.web.facade.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-	private UserService userService;
+	private UserServiceFacade userService;
 
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserServiceFacade userService) {
 		this.userService = userService;
 	}
 
 	@GetMapping("/{firstName}")
-	public User messageSend(@PathVariable("firstName") String firstName) {
+	public UserDto messageSend(@PathVariable("firstName") String firstName) {
 		return userService.getUserByName(firstName);
 	}
 }
